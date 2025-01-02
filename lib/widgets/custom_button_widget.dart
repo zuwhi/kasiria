@@ -32,7 +32,7 @@ class CustomButtonWidget extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.inter(
-          fontSize: 16,
+          fontSize: 11,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),

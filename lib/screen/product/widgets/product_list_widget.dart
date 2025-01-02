@@ -45,6 +45,7 @@ class ProductListWidget extends ConsumerWidget {
               ),
               CustomButtonWidget(
                   text: "+ Add Product",
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   onPressed: () {
                     context.push("/form-product");
                   })
@@ -89,12 +90,6 @@ class ProductListWidget extends ConsumerWidget {
                     )),
                     DataColumn(
                         label: CustomTextWidget(
-                      text: 'categori',
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w500,
-                    )),
-                    DataColumn(
-                        label: CustomTextWidget(
                       text: 'Edit | Remove',
                       fontSize: 11.0,
                       fontWeight: FontWeight.w500,
@@ -126,7 +121,6 @@ class ProductListWidget extends ConsumerWidget {
                       DataCell(Text('Rp. ${product.price.toString()}')),
                       DataCell(Text('${product.discount.toString()} %')),
                       DataCell(Text(product.stock.toString())),
-                      DataCell(Text(product.category.toString())),
                       DataCell(Row(
                         children: [
                           IconButton(

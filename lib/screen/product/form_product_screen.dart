@@ -14,7 +14,7 @@ import 'package:kasiria/widgets/custom_textformfield_product.dart';
 import 'package:logger/logger.dart';
 
 class FormProductScreen extends ConsumerStatefulWidget {
-  final ProductModel? product; // Parameter untuk update
+  final ProductModel? product;
 
   const FormProductScreen({super.key, this.product});
 
@@ -66,7 +66,6 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
       discountController.text = widget.product!.discount.toString();
       stockController.text = widget.product!.stock.toString();
       selectedCategoryId = widget.product!.category;
-      // Gambar belum bisa dimuat karena berbentuk URL, gambar akan di-update ulang
     }
   }
 
@@ -74,12 +73,10 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
   void initState() {
     super.initState();
 
-    // Ambil kategori
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(categoryNotifierProvider.notifier).getCategory();
     });
 
-    // Inisialisasi data untuk update
     _initializeData();
   }
 
@@ -88,7 +85,7 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
     final categoryState = ref.watch(categoryNotifierProvider);
     List<CategoryModel> categories = categoryState.value ?? [];
 
-    bool isUpdate = widget.product != null; // Cek apakah update atau add
+    bool isUpdate = widget.product != null;
 
     return Scaffold(
       backgroundColor: AppColors.secondary,
@@ -116,7 +113,6 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                       ),
                       const SizedBox(height: 20.0),
 
-                      // Nama Produk
                       Row(
                         children: [
                           _buildLabel("Product Name"),
@@ -131,7 +127,6 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                       ),
                       const SizedBox(height: 16.0),
 
-                      // Harga Produk
                       Row(
                         children: [
                           _buildLabel("Price"),
@@ -147,7 +142,6 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                       ),
                       const SizedBox(height: 16.0),
 
-                      // Diskon Produk
                       Row(
                         children: [
                           _buildLabel("Discount"),
@@ -163,7 +157,6 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                       ),
                       const SizedBox(height: 16.0),
 
-                      // Stok Produk
                       Row(
                         children: [
                           _buildLabel("Stock"),
@@ -179,21 +172,18 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                       ),
                       const SizedBox(height: 16.0),
 
-                      // Kategori Produk
                       Row(
                         children: [
                           _buildLabel("Category"),
                           Flexible(
                               child: DropdownButton<String>(
-                            value: selectedCategoryId, // Nilai yang dipilih
+                            value: selectedCategoryId,
                             onChanged: (String? newValue) {
                               setState(() {
-                                selectedCategoryId =
-                                    newValue; // Update kategori terpilih
+                                selectedCategoryId = newValue;
                               });
                             },
                             items: [
-                              // Tambahkan kategori dari database
                               ...categories
                                   .map<DropdownMenuItem<String>>((category) {
                                 return DropdownMenuItem<String>(
@@ -259,7 +249,7 @@ class _FormProductScreenState extends ConsumerState<FormProductScreen> {
                                 price: int.parse(priceController.text),
                                 discount: int.parse(discountController.text),
                                 stock: int.parse(stockController.text),
-                                category: selectedCategoryId ?? "",
+                                category: selectedCategoryId ?? "Uncategorized",
                                 image: "",
                               );
 

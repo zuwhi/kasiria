@@ -8,6 +8,7 @@ import 'package:kasiria/screen/product/form_product_screen.dart';
 import 'package:kasiria/screen/product/list_category_screen.dart';
 import 'package:kasiria/screen/product/list_product_screen.dart';
 import 'package:kasiria/screen/product/manage_product_screen.dart';
+import 'package:kasiria/screen/select_product/select_product_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
@@ -48,6 +49,10 @@ final routerProvider = Provider<GoRouter>((ref) => GoRouter(
         GoRoute(
           path: '/list-category',
           builder: (context, state) => const ListCategoryScreen(),
+        ),
+        GoRoute(
+          path: '/select-product',
+          builder: (context, state) => const SelectProductScreen(),
         ),
       ],
     ));
