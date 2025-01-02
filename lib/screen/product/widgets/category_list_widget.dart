@@ -42,9 +42,9 @@ class CategoryListWidget extends ConsumerWidget {
                 fontSize: 14.0,
               ),
               SizedBox(
-                height: 50,
                 child: CustomButtonWidget(
                     text: "+ Add Category",
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     onPressed: () {
                       context.push("/form-category");
                     }),

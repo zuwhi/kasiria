@@ -90,6 +90,19 @@ class DatabaseSqfliteService {
     }
   }
 
+  Future<Result> getCategoryCount() async {
+    try {
+      final db = await database;
+
+      final count = Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $categoryTable'),
+      );
+      return Result.success(count ?? 0);
+    } catch (e) {
+      return Result.failed(e.toString());
+    }
+  }
+
   Future<Result> updateCategory(CategoryModel category, File? imageFile) async {
     try {
       String imagePath = category.image;
@@ -170,7 +183,7 @@ class DatabaseSqfliteService {
     }
   }
 
-  Future<int> getProductCount() async {
+  Future<Result> getProductCount() async {
     try {
       final db = await database;
 
@@ -178,10 +191,9 @@ class DatabaseSqfliteService {
       final count = Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $productTable'),
       );
-
-      return count ?? 0; // Mengembalikan 0 jika data kosong
+      return Result.success(count ?? 0);
     } catch (e) {
-      return 0;
+      return Result.failed(e.toString());
     }
   }
 
