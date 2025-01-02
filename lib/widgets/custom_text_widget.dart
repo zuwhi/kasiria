@@ -11,7 +11,7 @@ class CustomTextWidget extends StatelessWidget {
     super.key,
     required this.text,
     this.fontSize = 16.0,
-    this.fontWeight = FontWeight.w600,
+    this.fontWeight = FontWeight.w400,
     this.color = Colors.black,
   });
 
