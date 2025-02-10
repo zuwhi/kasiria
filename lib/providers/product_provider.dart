@@ -18,8 +18,10 @@ class ProductNotifier extends _$ProductNotifier {
     return await _getProducts();
   }
 
-  Future<List<ProductModel>> _getProducts({int limit = 5, int offset = 0}) async {
-    final Result result = await _databaseSqfliteService.getProducts(limit:limit,offset: offset);
+  Future<List<ProductModel>> _getProducts(
+      {int limit = 10, int offset = 0}) async {
+    final Result result =
+        await _databaseSqfliteService.getProducts(limit: limit, offset: offset);
     if (result.isSuccess) {
       return result.resultValue as List<ProductModel>;
     } else {
@@ -27,11 +29,29 @@ class ProductNotifier extends _$ProductNotifier {
     }
   }
 
-  Future<void> getProduct({int limit = 5, int offset = 0}) async {
+  Future<void> getProduct({int limit = 10, int offset = 0}) async {
     state = const AsyncValue.loading();
     try {
-      final products = await _getProducts( limit:limit,offset: offset);
+      final products = await _getProducts(limit: limit, offset: offset);
       state = AsyncValue.data(products);
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
+    }
+  }
+
+  Future<void> getProductsByCategory(String category) async {
+    state = const AsyncValue.loading();
+    try {
+      if (category == 'All') {
+        await getProduct();
+      } else {
+        final Result result =
+            await _databaseSqfliteService.getProductsByCategory(category);
+
+        if (result.isSuccess) {
+          state = AsyncValue.data(result.resultValue as List<ProductModel>);
+        }
+      }
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
     }

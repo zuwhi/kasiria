@@ -218,6 +218,33 @@ class DatabaseSqfliteService {
     }
   }
 
+
+  Future<Result> getProductsByCategory(String category) async {
+    try {
+      final db = await database; 
+
+
+      final List<Map<String, dynamic>> maps = await db.query(
+        productTable,
+        where: 'category = ?', 
+        whereArgs: [category], 
+        orderBy: 'id DESC', 
+      );
+
+      
+      final List<ProductModel> products = maps.map((map) {
+        return ProductModel.fromJson({...map, 'id': map['id'] as int?});
+      }).toList();
+
+ 
+      return Result.success(products);
+    } catch (e) {
+    
+      return Result.failed(e.toString());
+    }
+  }
+
+
   Future<Result> updateProduct(ProductModel product, File? imageFile) async {
     try {
       String imagePath = product.image;
