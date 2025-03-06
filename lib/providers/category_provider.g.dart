@@ -6,7 +6,7 @@ part of 'category_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoryNotifierHash() => r'94a56cd851c40246ae761c35309f35b513eb249f';
+String _$categoryNotifierHash() => r'a71ad4d44055bce6218b51b688c04361c117ea5a';
 
 /// See also [CategoryNotifier].
 @ProviderFor(CategoryNotifier)

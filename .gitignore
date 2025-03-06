@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/release
 
 .vscode/templates
+
+*.freezed.dart
+*.g.dart
+/assets/.env

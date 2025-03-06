@@ -75,7 +75,7 @@ class _SelectProductScreenState extends ConsumerState<SelectProductScreen> {
                               setCategory("All", "All");
                             });
                           },
-                          imageAsset: 'assets/images/empty.jpg',
+                          imageAsset: 'assets/images/logo_white.png',
                           title: 'All',
                         ),
                       );

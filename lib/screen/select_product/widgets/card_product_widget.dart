@@ -29,8 +29,8 @@ class CardProductWidget extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(
-                    height: 65,
-                    width: 65,
+                    height: 55,
+                    width: 55,
                     child: ClipRRect(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(14.0)),
@@ -41,7 +41,7 @@ class CardProductWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 8.0,
                   ),
                   CustomTextWidget(
                     text: product.name,
@@ -100,7 +100,7 @@ class CardProductWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                      width: 38.0,
+                      width: 35.0,
                     ),
                   ],
                 ),
