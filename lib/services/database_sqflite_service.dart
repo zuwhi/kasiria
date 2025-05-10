@@ -9,6 +9,8 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/user_model.dart';
+
 final databaseSqfliteServiceProvider = Provider<DatabaseSqfliteService>((ref) {
   return DatabaseSqfliteService();
 });
@@ -17,6 +19,7 @@ class DatabaseSqfliteService {
   static Database? _database;
   static const String productTable = 'products';
   static const String categoryTable = 'categories';
+  static const String userTable = 'users';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -51,8 +54,49 @@ class DatabaseSqfliteService {
             image TEXT
           )
         ''');
+
+        await db.execute('''
+          CREATE TABLE $userTable (
+            id TEXT PRIMARY KEY,
+            username TEXT,
+            email TEXT,
+            password TEXT,
+            noTelp TEXT
+          )
+        ''');
       },
     );
+  }
+
+  Future<Result> registerUser(UserModel userModel) async {
+    try {
+      final db = await database;
+      await db.insert(
+        userTable,
+        {
+          'id': userModel.id,
+          'username': userModel.username,
+          'email': userModel.email,
+          'password': userModel.password,
+          'noTelp': userModel.noTelp
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return const Result.success(null);
+    } catch (e) {
+      return Result.failed(e.toString());
+    }
+  }
+
+  Future<UserModel?> getUserByEmail(String email) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('users', where: 'email = ?', whereArgs: [email]);
+
+    if (maps.isNotEmpty) {
+      return UserModel.fromJson(maps.first);
+    }
+    return null;
   }
 
   Future<String> _saveImageLocally(File imageFile) async {
@@ -206,6 +250,27 @@ class DatabaseSqfliteService {
         orderBy: 'id DESC',
         limit: limit,
         offset: offset,
+      );
+
+      final List<ProductModel> products = maps.map((map) {
+        return ProductModel.fromJson({...map, 'id': map['id'] as int?});
+      }).toList();
+
+      return Result.success(products);
+    } catch (e) {
+      return Result.failed(e.toString());
+    }
+  }
+
+  Future<Result> getProductsByCategory(String category) async {
+    try {
+      final db = await database;
+
+      final List<Map<String, dynamic>> maps = await db.query(
+        productTable,
+        where: 'category = ?',
+        whereArgs: [category],
+        orderBy: 'id DESC',
       );
 
       final List<ProductModel> products = maps.map((map) {

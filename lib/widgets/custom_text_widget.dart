@@ -6,6 +6,8 @@ class CustomTextWidget extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
+  final bool isUnderlined;
+  final Color? underlineColor;
 
   const CustomTextWidget({
     super.key,
@@ -13,6 +15,8 @@ class CustomTextWidget extends StatelessWidget {
     this.fontSize = 16.0,
     this.fontWeight = FontWeight.w400,
     this.color = Colors.black,
+    this.isUnderlined = false,
+    this.underlineColor = Colors.black,
   });
 
   @override
@@ -20,9 +24,14 @@ class CustomTextWidget extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.poppins(
+        
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: color,
+        decoration: isUnderlined ? TextDecoration.underline : TextDecoration.none,
+        decorationColor: isUnderlined ? underlineColor : null, 
+        decorationStyle: TextDecorationStyle.solid,
+        decorationThickness: 2
       ),
     );
   }

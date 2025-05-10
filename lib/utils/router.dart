@@ -1,8 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:kasiria/models/category_model.dart';
 import 'package:kasiria/models/product_model.dart';
+import 'package:kasiria/recent_transaction/recent_transaction_screen.dart';
 import 'package:kasiria/screen/auth/login_screen.dart';
 import 'package:kasiria/screen/auth/register_screen.dart';
+import 'package:kasiria/screen/dashboard/dashboard_screen.dart';
+import 'package:kasiria/screen/payment/payment_screen.dart';
 import 'package:kasiria/screen/product/form_category_screen.dart';
 import 'package:kasiria/screen/product/form_product_screen.dart';
 import 'package:kasiria/screen/product/list_category_screen.dart';
@@ -12,7 +15,7 @@ import 'package:kasiria/screen/select_product/select_product_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final routerProvider = Provider<GoRouter>((ref) => GoRouter(
-      initialLocation: '/manage-product',
+      initialLocation: '/login',
       routes: [
         GoRoute(
           path: '/login',
@@ -21,6 +24,10 @@ final routerProvider = Provider<GoRouter>((ref) => GoRouter(
         GoRoute(
           path: '/register',
           builder: (context, state) => const RegisterScreen(),
+        ),
+        GoRoute(
+          path: '/dashboard',
+          builder: (context, state) => const DashboardScreen(),
         ),
         GoRoute(
           path: '/manage-product',
@@ -53,6 +60,14 @@ final routerProvider = Provider<GoRouter>((ref) => GoRouter(
         GoRoute(
           path: '/select-product',
           builder: (context, state) => const SelectProductScreen(),
+        ),
+        GoRoute(
+          path: '/payment',
+          builder: (context, state) => const PaymentScreen(),
+        ),
+        GoRoute(
+          path: '/recent-transaction',
+          builder: (context, state) => const RecentTransactionScreen(),
         ),
       ],
     ));

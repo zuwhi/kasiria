@@ -44,7 +44,7 @@ class CategoryNotifier extends _$CategoryNotifier {
         await _databaseSqfliteService.addCategory(category, image);
     if (result.isSuccess) {
       await getCategory();
-      ref.read(routerProvider).go('/manage-product');
+      ref.read(routerProvider).push('/manage-product');
     } else {
       state = AsyncValue.error(result.errorMessage!, StackTrace.current);
     }
@@ -58,7 +58,7 @@ class CategoryNotifier extends _$CategoryNotifier {
     if (result.isSuccess) {
       await getCategory();
       await ref.watch(productNotifierProvider.notifier).getProduct();
-      ref.read(routerProvider).go('/manage-product');
+      ref.read(routerProvider).push('/manage-product');
     } else {
       state = AsyncValue.error(result.errorMessage!, StackTrace.current);
     }

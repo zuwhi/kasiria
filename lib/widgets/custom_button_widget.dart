@@ -8,12 +8,14 @@ class CustomButtonWidget extends StatelessWidget {
   final Color? color;
   final double borderRadius;
   final EdgeInsets padding;
+  final double? fontSize;
 
   const CustomButtonWidget({
     super.key,
     required this.text,
     required this.onPressed,
     this.color,
+    this.fontSize,
     this.borderRadius = 8.0,
     this.padding = const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
   });
@@ -32,7 +34,7 @@ class CustomButtonWidget extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.inter(
-          fontSize: 11,
+          fontSize: fontSize ?? 11,
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),

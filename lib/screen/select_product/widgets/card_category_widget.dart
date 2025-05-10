@@ -8,6 +8,7 @@ class CardCategory extends StatelessWidget {
   final bool isActive;
   final String? imagePath;
   final String? title;
+  final String? imageAsset;
   final int index;
   final void Function()? onTap;
 
@@ -16,6 +17,7 @@ class CardCategory extends StatelessWidget {
       this.onTap,
       this.title,
       this.imagePath,
+      this.imageAsset,
       this.isActive = false,
       this.index = 1});
 
@@ -24,33 +26,44 @@ class CardCategory extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           color: isActive ? AppColors.primary : AppColors.white,
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(11.0),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: imagePath != null
-                  ? Image.file(
-                      File(imagePath!),
-                      height: 50.0,
-                    )
-                  : Image.asset(
-                      "assets/images/empty.jpg",
-                    ),
+              child: SizedBox(
+                height: 35.0,
+                width: 35.0,
+                child: imageAsset != null
+                    ? Image.asset(
+                        imageAsset!,
+                        fit: BoxFit.cover,
+                      )
+                    : imagePath != null
+                        ? Image.file(
+                            File(imagePath!),
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            "assets/images/empty.jpg",
+                          ),
+              ),
             ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            CustomTextWidget(
-              text: title!,
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-              color: isActive ? AppColors.white : Colors.grey.shade600,
+            SizedBox(
+              width: 53,
+              child: Center(
+                child: CustomTextWidget(
+                  text: title!,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  color: isActive ? AppColors.white : Colors.grey.shade600,
+                ),
+              ),
             )
           ],
         ),
